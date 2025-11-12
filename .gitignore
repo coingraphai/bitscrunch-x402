@@ -70,7 +70,3 @@ temp/
 # Backup files
 *.backup
 *_backup.py
-
-# Docker
-docker-compose.override.yml
-.dockerignore.backup

@@ -72,52 +72,13 @@ This application enables micropayments for NFT analytics endpoints using the x40
 
 ## Prerequisites
 
-- **For Docker** (Recommended): Docker & Docker Compose
-- **For Manual Setup**: Python 3.11+ (required for OpenSSL 3.x support)
+- Python 3.11+ (required for OpenSSL 3.x support)
 - Access to Base Sepolia testnet
 - USDC tokens on Base Sepolia (for payments)
 - ETH on Base Sepolia (for gas fees)
 - UnleashNFTs API key
 
 ## Quick Start
-
-### Option 1: Docker Deployment (Recommended) 🐳
-
-**Easiest way to get started!**
-
-```bash
-# 1. Configure environment
-cp .env.example .env
-nano .env  # Add your API keys and private keys
-
-# 2. Deploy with one command
-./docker-deploy.sh
-
-# 3. Access the application
-# Frontend: http://localhost:8501
-# Resource API: http://localhost:8001
-# Facilitator API: http://localhost:8002
-```
-
-That's it! All services are now running in Docker containers.
-
-**Docker Commands:**
-```bash
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-
-# Restart services
-docker-compose restart
-```
-
-📖 **[See detailed Docker documentation](DOCKER.md)**
-
----
-
-### Option 2: Manual Setup
 
 ### 1. Clone and Setup
 
