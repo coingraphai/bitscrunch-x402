@@ -70,6 +70,11 @@ st.markdown("""
 FACILITATOR_URL = os.getenv("FACILITATOR_URL", "http://localhost:8002")
 RESOURCE_URL = os.getenv("RESOURCE_URL", "http://localhost:8001")
 
+# Helper function to build full URLs
+def get_resource_url(path):
+    """Build full resource URL from path"""
+    return f"{RESOURCE_URL}{path}"
+
 # Header
 st.markdown('<div class="main-header">x402 Protocol - UnleashNFTs API</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-header">HTTP-Native Payments for NFT Analytics</div>', unsafe_allow_html=True)
@@ -276,7 +281,7 @@ with tab2:
             {
                 "name": "Supported Blockchains",
                 "icon": "",
-                "url_template": "http://localhost:8001/unleashnfts/blockchains",
+                "url_template": get_resource_url("/unleashnfts/blockchains"),
                 "price": "$0.02",
                 "description": "Get list of all supported blockchains (Ethereum, Polygon, BSC, Solana, etc.)",
                 "key": "unleashnfts_blockchains",
@@ -286,7 +291,7 @@ with tab2:
             {
                 "name": "Market Insights",
                 "icon": "",
-                "url_template": "http://localhost:8001/unleashnfts/market-insights?blockchain={blockchain}&time_range={time_range}",
+                "url_template": get_resource_url("/unleashnfts/market-insights?blockchain={blockchain}&time_range={time_range}"),
                 "price": "$0.05",
                 "description": "NFT market analytics including volume, sales, and trends",
                 "key": "unleashnfts_market",
@@ -311,7 +316,7 @@ with tab2:
             {
                 "name": "Supported Collections",
                 "icon": "",
-                "url_template": "http://localhost:8001/unleashnfts/supported-collections/{chain_id}",
+                "url_template": get_resource_url("/unleashnfts/supported-collections/{chain_id}"),
                 "price": "$0.03",
                 "description": "Get NFT collections with AI-powered valuation support",
                 "key": "unleashnfts_collections",
@@ -330,7 +335,7 @@ with tab2:
             {
                 "name": "NFT Valuation",
                 "icon": "",
-                "url_template": "http://localhost:8001/unleashnfts/nft-valuation/{chain_id}/{contract_address}/{token_id}",
+                "url_template": get_resource_url("/unleashnfts/nft-valuation/{chain_id}/{contract_address}/{token_id}"),
                 "price": "$0.08",
                 "description": "AI-powered price estimation for specific NFT",
                 "key": "unleashnfts_valuation",
@@ -361,7 +366,7 @@ with tab2:
             {
                 "name": "Collection Scores",
                 "icon": "",
-                "url_template": "http://localhost:8001/unleashnfts/collection-scores?collection_address={collection_address}&blockchain={blockchain}&days={days}",
+                "url_template": get_resource_url("/unleashnfts/collection-scores?collection_address={collection_address}&blockchain={blockchain}&days={days}"),
                 "price": "$0.04",
                 "description": "Comprehensive scores and metrics for NFT collection",
                 "key": "unleashnfts_scores",
@@ -393,7 +398,7 @@ with tab2:
             {
                 "name": "Washtrade Analysis",
                 "icon": "",
-                "url_template": "http://localhost:8001/unleashnfts/collection-washtrade?collection_address={collection_address}&blockchain={blockchain}",
+                "url_template": get_resource_url("/unleashnfts/collection-washtrade?collection_address={collection_address}&blockchain={blockchain}"),
                 "price": "$0.06",
                 "description": "Detect suspicious wash trading activity for NFT collection",
                 "key": "unleashnfts_washtrade",
@@ -417,7 +422,7 @@ with tab2:
             {
                 "name": "Floor Price",
                 "icon": "",
-                "url_template": "http://localhost:8001/unleashnfts/floor-price?collection_address={collection_address}&blockchain={blockchain}",
+                "url_template": get_resource_url("/unleashnfts/floor-price?collection_address={collection_address}&blockchain={blockchain}"),
                 "price": "$0.03",
                 "description": "Real-time floor price across 30+ marketplaces",
                 "key": "unleashnfts_floor",
