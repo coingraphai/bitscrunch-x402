@@ -98,6 +98,9 @@ def run_single_endpoint(endpoint_url, endpoint_name):
         if not private_key or not rpc_url:
             return None, "Environment variables not configured", 1
         
+        # Get project root
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        
         # Create a temporary Python script to run the payment
         script_content = f"""
 import sys
@@ -112,8 +115,8 @@ warnings.filterwarnings('ignore')
 if sys.platform == 'darwin':
     asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
 
-# Set working directory and add to path (dynamic based on script location)
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# Get project root from environment variable
+PROJECT_ROOT = os.environ.get('PROJECT_ROOT', os.getcwd())
 os.chdir(PROJECT_ROOT)
 sys.path.insert(0, PROJECT_ROOT)
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'backend'))
@@ -181,13 +184,18 @@ except Exception as e:
             if not os.path.exists(venv_python):
                 venv_python = 'python3'
             
+            # Create environment with PROJECT_ROOT
+            env = os.environ.copy()
+            env['PROJECT_ROOT'] = project_root
+            env['PYTHONPATH'] = project_root
+            
             result = subprocess.run(
                 [venv_python, temp_script],
                 cwd=project_root,
                 capture_output=True,
                 text=True,
                 timeout=30,
-                env=dict(os.environ, PYTHONPATH=project_root)
+                env=env
             )
             return result.stdout, result.stderr, result.returncode
         finally:
