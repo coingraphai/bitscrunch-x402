@@ -112,10 +112,11 @@ warnings.filterwarnings('ignore')
 if sys.platform == 'darwin':
     asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
 
-# Set working directory and add to path
-os.chdir('/Users/ajayprashanth/Documents/bitsCrunch/bitsCrunch-x402')
-sys.path.insert(0, '/Users/ajayprashanth/Documents/bitsCrunch/bitsCrunch-x402')
-sys.path.insert(0, '/Users/ajayprashanth/Documents/bitsCrunch/bitsCrunch-x402/backend')
+# Set working directory and add to path (dynamic based on script location)
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+os.chdir(PROJECT_ROOT)
+sys.path.insert(0, PROJECT_ROOT)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, 'backend'))
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -172,13 +173,21 @@ except Exception as e:
             temp_script = f.name
         
         try:
+            # Get project root dynamically
+            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+            venv_python = os.path.join(project_root, 'venv-py311', 'bin', 'python')
+            
+            # Use python3 if venv not available
+            if not os.path.exists(venv_python):
+                venv_python = 'python3'
+            
             result = subprocess.run(
-                ['./venv-py311/bin/python', temp_script],
-                cwd='/Users/ajayprashanth/Documents/bitsCrunch/bitsCrunch-x402',
+                [venv_python, temp_script],
+                cwd=project_root,
                 capture_output=True,
                 text=True,
                 timeout=30,
-                env=dict(os.environ, PYTHONPATH='/Users/ajayprashanth/Documents/bitsCrunch/bitsCrunch-x402')
+                env=dict(os.environ, PYTHONPATH=project_root)
             )
             return result.stdout, result.stderr, result.returncode
         finally:
