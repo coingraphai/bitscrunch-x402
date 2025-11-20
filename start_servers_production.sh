@@ -64,7 +64,7 @@ sleep 3
 
 # Start Streamlit Frontend on port 4000
 echo "[START] Starting Streamlit Frontend on port 4000..."
-nohup streamlit run frontend/app.py \
+nohup streamlit run frontend/app_coingecko.py \
     --server.port 4000 \
     --server.address 0.0.0.0 \
     --server.headless true \
