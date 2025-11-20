@@ -244,11 +244,9 @@ with st.sidebar:
         st.warning("Wallet Not Set")
 
 # Main Tabs
-tab1, tab2, tab3, tab4 = st.tabs([
+tab1, tab2 = st.tabs([
     "Overview",
-    "Test Endpoints",
-    "AI Assistant",
-    "Documentation"
+    "Test Endpoints"
 ])
 
 # Tab 1: Overview
@@ -273,10 +271,38 @@ with tab1:
     5. Client receives protected content
     """)
     
+    st.markdown("---")
+    
+    st.subheader("UnleashNFTs API Endpoints")
+    st.markdown("""
+    Access advanced NFT analytics through micropayments. Each endpoint provides unique insights:
+    """)
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("""
+        **📊 Standard Endpoints:**
+        - `GET /unleashnfts/blockchains` - Supported blockchains **($0.02)**
+        - `GET /unleashnfts/market-insights` - NFT market analytics **($0.05)**
+        - `GET /unleashnfts/supported-collections/{blockchain_id}` - Collections with AI valuation **($0.03)**
+        - `GET /unleashnfts/nft-valuation/{blockchain_id}/{contract}/{token}` - AI price estimate **($0.08)**
+        """)
+    
+    with col2:
+        st.markdown("""
+        **🔍 Advanced Analytics:**
+        - `GET /unleashnfts/collection-scores` - Collection metrics **($0.04)**
+        - `GET /unleashnfts/collection-washtrade` - Wash trade detection **($0.06)**
+        - `GET /unleashnfts/floor-price` - Floor prices across marketplaces **($0.03)**
+        """)
+    
+    st.markdown("---")
+    
     if facilitator_online and resource_online:
-        st.success("All systems operational! Go to **Test Endpoints** tab to test UnleashNFTs API.")
+        st.success("✅ All systems operational! Go to **Test Endpoints** tab to test UnleashNFTs API.")
     else:
-        st.error("Some services are offline. Please check server status.")
+        st.error("❌ Some services are offline. Please check server status.")
 
 # Tab 2: Test Endpoints - Individual UnleashNFTs API Testing
 with tab2:
@@ -637,134 +663,6 @@ with tab2:
                         - Check server logs for detailed errors
                         """)
 
-# Tab 3: AI Assistant
-with tab3:
-    st.header("AI Assistant")
-    
-    st.markdown("""
-    Ask questions about x402 protocol, UnleashNFTs API, or blockchain payments!
-    """)
-    
-    # Chat interface
-    user_question = st.text_input("Ask a question:", placeholder="e.g., How does x402 work?")
-    
-    if st.button("Ask AI"):
-        if user_question:
-            with st.spinner("AI is thinking..."):
-                # Simulated AI responses
-                ai_responses = {
-                    "how does x402 work": "x402 is an HTTP-native payment protocol that integrates blockchain payments directly into web requests. When you request a protected resource, the server responds with 402 Payment Required, you sign a payment authorization, and the facilitator settles it on-chain.",
-                    "what is eip-3009": "EIP-3009 introduces transferWithAuthorization, allowing token transfers to be authorized via signatures. This enables gas-less token transfers where a relayer can submit the transaction on behalf of the token holder.",
-                    "base sepolia": "Base Sepolia is the testnet for Base, Coinbase's Ethereum L2. It uses Chain ID 84532 and allows developers to test applications without spending real ETH or tokens.",
-                    "usdc": "USDC is a stablecoin pegged to the US Dollar (1 USDC = $1 USD). It's widely used for payments and DeFi applications. The x402 protocol uses USDC for micropayments.",
-                    "unleashnfts": "UnleashNFTs provides advanced NFT analytics including AI-powered valuations, wash trade detection, collection scores, and floor price tracking across 30+ marketplaces.",
-                }
-                
-                response = "I'm an AI assistant specialized in x402 protocol and UnleashNFTs API. "
-                
-                question_lower = user_question.lower()
-                found = False
-                
-                for key, value in ai_responses.items():
-                    if key in question_lower:
-                        response = value
-                        found = True
-                        break
-                
-                if not found:
-                    response += "Try asking about x402 protocol, UnleashNFTs endpoints, or blockchain payments!"
-                
-                st.success(f"**AI Response:**\n\n{response}")
-        else:
-            st.warning("Please enter a question")
-    
-    st.markdown("---")
-    
-    st.subheader("Quick Tips")
-    
-    tips = [
-        "Always ensure you have enough USDC and ETH for gas on Base Sepolia testnet",
-        "Never share your private keys - they're stored securely in .env file",
-        "Transactions on Base Sepolia usually confirm in 2-3 seconds",
-        "Use the Test Endpoints tab to try UnleashNFTs API with real payments",
-        "Each endpoint provides unique NFT analytics and insights",
-    ]
-    
-    for tip in tips:
-        st.info(tip)
-
-# Tab 4: Documentation
-with tab4:
-    st.header("Documentation")
-    
-    st.subheader("Quick Start")
-    st.code("""
-# 1. Start all servers
-./start_servers.sh
-
-# 2. Open frontend
-streamlit run frontend/app_coingecko.py
-
-# 3. Go to Test Endpoints tab and select an endpoint
-    """, language="bash")
-    
-    st.markdown("---")
-    
-    st.subheader("UnleashNFTs API Endpoints")
-    
-    with st.expander("Available Endpoints"):
-        st.markdown("""
-        **Standard Endpoints:**
-        - **GET /unleashnfts/blockchains** - Supported blockchains ($0.02)
-        - **GET /unleashnfts/market-insights** - NFT market analytics ($0.05)
-        - **GET /unleashnfts/supported-collections/{blockchain_id}** - Collections with AI valuation ($0.03)
-        - **GET /unleashnfts/nft-valuation/{blockchain_id}/{contract}/{token}** - AI price estimate ($0.08)
-        - **GET /unleashnfts/collection-scores** - Collection metrics ($0.04)
-        - **GET /unleashnfts/collection-washtrade** - Wash trade detection ($0.06)
-        - **GET /unleashnfts/floor-price** - Floor prices across marketplaces ($0.03)
-        """)
-    
-    with st.expander("Example: Test BAYC Floor Price"):
-        st.code("""
-# Request
-GET /unleashnfts/floor-price?collection_address=0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d&blockchain=ethereum
-
-# Response
-{
-  "data": [
-    {
-      "marketplace": "OpenSea",
-      "floor_price": "32.5 ETH"
-    },
-    {
-      "marketplace": "Blur",
-      "floor_price": "32.3 ETH"
-    },
-    ...
-  ]
-}
-        """, language="json")
-    
-    st.markdown("---")
-    
-    st.subheader("Useful Links")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        - [x402 Protocol](https://x402.org)
-        - [EIP-3009](https://eips.ethereum.org/EIPS/eip-3009)
-        - [Base Sepolia](https://base.org)
-        """)
-    
-    with col2:
-        st.markdown("""
-        - [UnleashNFTs API](https://unleashnfts.com)
-        - [USDC Info](https://www.circle.com/usdc)
-        - [GitHub Repo](https://github.com/coinbase/x402)
-        """)
-
 # Footer
 st.markdown("---")
 st.markdown("""
@@ -773,3 +671,4 @@ st.markdown("""
     <p>Powered by Base Sepolia Testnet</p>
 </div>
 """, unsafe_allow_html=True)
+
