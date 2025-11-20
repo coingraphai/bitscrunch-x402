@@ -1,6 +1,6 @@
 #!/bin/bash
 # Server Check and Update Script
-# Run this on your server at 143.110.181.93
+# Run this on your server at 159.89.170.85
 
 echo "==================================="
 echo "Checking Server Code Status"

@@ -6,7 +6,7 @@ set -e
 
 echo "========================================="
 echo "Starting x402 Protocol Production Servers"
-echo "Digital Ocean Droplet: 143.110.181.93"
+echo "Digital Ocean Droplet: 159.89.170.85"
 echo "========================================="
 echo ""
 
@@ -96,6 +96,6 @@ echo "   kill $FACILITATOR_PID $RESOURCE_PID"
 
 echo ""
 echo "[INFO] Access endpoints:"
-echo "   Facilitator: http://143.110.181.93/api/facilitator"
-echo "   Resource: http://143.110.181.93/api/resource"
+echo "   Facilitator: http://159.89.170.85/api/facilitator"
+echo "   Resource: http://159.89.170.85/api/resource"
 echo ""

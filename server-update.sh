@@ -1,6 +1,6 @@
 #!/bin/bash
 # Server Update and Deployment Script
-# Run this on your server at 143.110.181.93
+# Run this on your server at 159.89.170.85
 
 set -e
 
@@ -29,12 +29,12 @@ echo ""
 
 # Check if .env needs updating
 echo "3. Checking environment configuration..."
-if ! grep -q "RESOURCE_URL=http://143.110.181.93/resource" .env 2>/dev/null; then
+if ! grep -q "RESOURCE_URL=http://159.89.170.85/resource" .env 2>/dev/null; then
     echo "⚠ .env file needs to be updated with server URLs"
     echo ""
     echo "Update these lines in .env:"
-    echo "  FACILITATOR_URL=http://143.110.181.93/facilitator"
-    echo "  RESOURCE_URL=http://143.110.181.93/resource"
+    echo "  FACILITATOR_URL=http://159.89.170.85/facilitator"
+    echo "  RESOURCE_URL=http://159.89.170.85/resource"
     echo ""
     read -p "Press Enter after updating .env or Ctrl+C to exit..."
 fi
@@ -84,7 +84,7 @@ curl -s http://localhost:8001/health && echo "" || echo "✗ Failed"
 
 echo ""
 echo "Streamlit (check browser):"
-echo "  http://143.110.181.93:8501"
+echo "  http://159.89.170.85:8501"
 echo ""
 
 echo "==================================="
@@ -92,9 +92,9 @@ echo "Deployment Complete!"
 echo "==================================="
 echo ""
 echo "Access your application:"
-echo "  Frontend: http://143.110.181.93:8501"
-echo "  Facilitator: http://143.110.181.93/facilitator"
-echo "  Resource: http://143.110.181.93/resource"
+echo "  Frontend: http://159.89.170.85:8501"
+echo "  Facilitator: http://159.89.170.85/facilitator"
+echo "  Resource: http://159.89.170.85/resource"
 echo ""
 echo "View logs:"
 echo "  tail -f logs/facilitator.log"

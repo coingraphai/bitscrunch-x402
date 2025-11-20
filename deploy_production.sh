@@ -1,13 +1,13 @@
 #!/bin/bash
 # Complete Deployment Script for Digital Ocean Server
-# Server: 143.110.181.93
+# Server: 159.89.170.85
 # Ports: 3000 (resource), 3001 (facilitator), 4000 (streamlit)
 
 set -e
 
 echo "=============================================="
 echo "x402 Protocol Production Deployment"
-echo "Digital Ocean Droplet: 143.110.181.93"
+echo "Digital Ocean Droplet: 159.89.170.85"
 echo "=============================================="
 echo ""
 
@@ -16,7 +16,7 @@ if [ ! -d "/root/bitscrunch-x402" ]; then
     echo "⚠️  This script should be run on the production server"
     echo ""
     echo "First, SSH to your server:"
-    echo "  ssh root@143.110.181.93"
+    echo "  ssh root@159.89.170.85"
     echo ""
     echo "Then clone the repository:"
     echo "  git clone https://github.com/coingraphai/bitscrunch-x402.git /root/bitscrunch-x402"
@@ -58,43 +58,10 @@ echo ""
 echo "🐍 Step 3: Checking Python installation..."
 if ! command -v python3.11 &> /dev/null; then
     echo "Installing Python 3.11..."
-    
-    # Remove any problematic PPA
-    rm -f /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-*.list
-    
-    # Update and install Python 3.11
     apt-get update
-    apt-get install -y software-properties-common
-    
-    # Try to install python3.11 from default repos first
-    if apt-get install -y python3.11 python3.11-venv python3.11-dev 2>/dev/null; then
-        echo "✅ Python 3.11 installed from default repos"
-    else
-        # If not available, use alternative method
-        echo "Trying alternative installation method..."
-        apt-get install -y build-essential libssl-dev libffi-dev python3-dev
-        
-        # Check if python3 version is 3.11 or higher
-        if python3 --version 2>&1 | grep -q "Python 3\.1[1-9]"; then
-            echo "✅ Python 3.11+ already available as python3"
-            ln -sf $(which python3) /usr/local/bin/python3.11 || true
-        fi
-    fi
+    apt-get install -y python3.11 python3.11-venv python3.11-dev
 fi
-
-# Verify Python 3.11 is available
-if command -v python3.11 &> /dev/null; then
-    echo "✅ Python 3.11 ready: $(python3.11 --version)"
-elif python3 --version 2>&1 | grep -q "Python 3\.1[1-9]"; then
-    echo "✅ Python 3 (version 3.11+) is available"
-    # Create symlink if needed
-    ln -sf $(which python3) /usr/local/bin/python3.11 || true
-else
-    echo "❌ Python 3.11 installation failed"
-    echo "Please install manually:"
-    echo "  apt-get install python3.11 python3.11-venv python3.11-dev"
-    exit 1
-fi
+echo "✅ Python 3.11 ready"
 echo ""
 
 # 4. Setup virtual environment
@@ -266,9 +233,9 @@ echo "🎉 Deployment Complete!"
 echo "=============================================="
 echo ""
 echo "📊 Service URLs:"
-echo "  Frontend:    http://143.110.181.93"
-echo "  Facilitator: http://143.110.181.93/api/facilitator"
-echo "  Resource:    http://143.110.181.93/api/resource"
+echo "  Frontend:    http://159.89.170.85"
+echo "  Facilitator: http://159.89.170.85/api/facilitator"
+echo "  Resource:    http://159.89.170.85/api/resource"
 echo ""
 echo "🔍 Local endpoints (for debugging):"
 echo "  Facilitator: http://localhost:3001"

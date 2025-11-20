@@ -2,15 +2,15 @@
 
 ## Server Configuration
 
-**Server IP**: http://143.110.181.93
+**Server IP**: http://159.89.170.85
 
 ### Service URLs
 
 | Service | Path | Full URL |
 |---------|------|----------|
-| Facilitator Server | `/facilitator` | http://143.110.181.93/facilitator |
-| Resource Server | `/resource` | http://143.110.181.93/resource |
-| Frontend (Streamlit) | `/` or `/app` | http://143.110.181.93:8501 |
+| Facilitator Server | `/facilitator` | http://159.89.170.85/facilitator |
+| Resource Server | `/resource` | http://159.89.170.85/resource |
+| Frontend (Streamlit) | `/` or `/app` | http://159.89.170.85:8501 |
 
 ## Environment Configuration
 
@@ -18,10 +18,10 @@ Your `.env` file has been updated with production URLs:
 
 ```bash
 # Facilitator URL (used by resource server)
-FACILITATOR_URL=http://143.110.181.93/facilitator
+FACILITATOR_URL=http://159.89.170.85/facilitator
 
 # Resource URL (used by frontend)
-RESOURCE_URL=http://143.110.181.93/resource
+RESOURCE_URL=http://159.89.170.85/resource
 ```
 
 ## Nginx/Reverse Proxy Setup
@@ -33,7 +33,7 @@ You'll need to configure your web server (nginx/apache) to proxy requests:
 ```nginx
 server {
     listen 80;
-    server_name 143.110.181.93;
+    server_name 159.89.170.85;
 
     # Facilitator Server
     location /facilitator/ {
@@ -70,7 +70,7 @@ server {
 
 ## Deployment Steps
 
-### 1. On Your Server (143.110.181.93)
+### 1. On Your Server (159.89.170.85)
 
 ```bash
 # Clone the repository
@@ -83,8 +83,8 @@ cp .env.example .env
 nano .env
 
 # Update with production values:
-# - FACILITATOR_URL=http://143.110.181.93/facilitator
-# - RESOURCE_URL=http://143.110.181.93/resource
+# - FACILITATOR_URL=http://159.89.170.85/facilitator
+# - RESOURCE_URL=http://159.89.170.85/resource
 # - Your private keys and API keys
 ```
 
@@ -134,7 +134,7 @@ nohup ./venv-py311/bin/streamlit run frontend/app_coingecko.py --server.port 850
 ### Test Facilitator Server
 
 ```bash
-curl http://143.110.181.93/facilitator/health
+curl http://159.89.170.85/facilitator/health
 ```
 
 Expected response:
@@ -145,7 +145,7 @@ Expected response:
 ### Test Resource Server
 
 ```bash
-curl http://143.110.181.93/resource/health
+curl http://159.89.170.85/resource/health
 ```
 
 Expected response:
@@ -155,7 +155,7 @@ Expected response:
 
 ### Test Frontend
 
-Open browser: http://143.110.181.93:8501
+Open browser: http://159.89.170.85:8501
 
 ## Process Management (systemd)
 

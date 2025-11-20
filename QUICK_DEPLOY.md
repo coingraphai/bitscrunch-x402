@@ -1,12 +1,12 @@
 # 🚀 Quick Deployment Commands
 
-## On Your Digital Ocean Server (143.110.181.93)
+## On Your Digital Ocean Server (159.89.170.85)
 
 ### 1️⃣ First Time Setup
 
 ```bash
 # SSH to server
-ssh root@143.110.181.93
+ssh root@159.89.170.85
 
 # Clone repository
 git clone https://github.com/coingraphai/bitscrunch-x402.git /root/bitscrunch-x402
@@ -24,7 +24,7 @@ nano .env
 ### 2️⃣ Quick Deploy/Update
 
 ```bash
-ssh root@143.110.181.93
+ssh root@159.89.170.85
 cd /root/bitscrunch-x402
 git pull origin main
 ./deploy_production.sh
@@ -34,11 +34,11 @@ git pull origin main
 
 ```bash
 # Test APIs
-curl http://143.110.181.93/api/facilitator/health
-curl http://143.110.181.93/api/resource/health
+curl http://159.89.170.85/api/facilitator/health
+curl http://159.89.170.85/api/resource/health
 
 # Open in browser
-# http://143.110.181.93
+# http://159.89.170.85
 ```
 
 ---
@@ -47,9 +47,9 @@ curl http://143.110.181.93/api/resource/health
 
 | Service | Port | Public URL |
 |---------|------|------------|
-| Facilitator | 3001 | http://143.110.181.93/api/facilitator |
-| Resource | 3000 | http://143.110.181.93/api/resource |
-| Streamlit | 4000 | http://143.110.181.93 |
+| Facilitator | 3001 | http://159.89.170.85/api/facilitator |
+| Resource | 3000 | http://159.89.170.85/api/resource |
+| Streamlit | 4000 | http://159.89.170.85 |
 
 **✅ These ports are FREE on your server**
 
@@ -104,8 +104,8 @@ nano /root/bitscrunch-x402/.env
 - `BITSCRUNCH_API_KEY` - UnleashNFTs API key
 
 **Keep these as-is (production URLs):**
-- `FACILITATOR_URL=http://143.110.181.93/api/facilitator`
-- `RESOURCE_URL=http://143.110.181.93/api/resource`
+- `FACILITATOR_URL=http://159.89.170.85/api/facilitator`
+- `RESOURCE_URL=http://159.89.170.85/api/resource`
 
 ---
 
@@ -155,5 +155,5 @@ See `PRODUCTION_DEPLOYMENT.md` for complete guide
 ---
 
 **🎯 Your Production URLs:**
-- Frontend: http://143.110.181.93
-- API: http://143.110.181.93/api/facilitator & /api/resource
+- Frontend: http://159.89.170.85
+- API: http://159.89.170.85/api/facilitator & /api/resource

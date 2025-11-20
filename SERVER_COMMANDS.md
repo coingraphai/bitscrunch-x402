@@ -1,6 +1,6 @@
 # Quick Server Commands
 
-## On Your Server (143.110.181.93)
+## On Your Server (159.89.170.85)
 
 ### 1. Check if Code is Updated
 
@@ -52,8 +52,8 @@ nano .env
 
 Make sure these lines are set:
 ```
-FACILITATOR_URL=http://143.110.181.93/facilitator
-RESOURCE_URL=http://143.110.181.93/resource
+FACILITATOR_URL=http://159.89.170.85/facilitator
+RESOURCE_URL=http://159.89.170.85/resource
 ```
 
 #### Start Services
@@ -92,15 +92,15 @@ curl http://localhost:8002/health
 curl http://localhost:8001/health
 
 # Test via public IP
-curl http://143.110.181.93/facilitator/health
-curl http://143.110.181.93/resource/health
+curl http://159.89.170.85/facilitator/health
+curl http://159.89.170.85/resource/health
 ```
 
 ## URLs
 
-- **Frontend**: http://143.110.181.93:8501
-- **Facilitator**: http://143.110.181.93/facilitator
-- **Resource**: http://143.110.181.93/resource
+- **Frontend**: http://159.89.170.85:8501
+- **Facilitator**: http://159.89.170.85/facilitator
+- **Resource**: http://159.89.170.85/resource
 
 ## First Time Setup
 

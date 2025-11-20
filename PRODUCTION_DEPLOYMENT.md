@@ -2,7 +2,7 @@
 
 ## 🌐 Server Information
 
-- **Server IP**: 143.110.181.93
+- **Server IP**: 159.89.170.85
 - **Repository**: https://github.com/coingraphai/bitscrunch-x402
 
 ## 🔧 Port Configuration
@@ -11,9 +11,9 @@
 
 | Service | Port | Purpose | URL |
 |---------|------|---------|-----|
-| **Facilitator** | 3001 | Payment verification | http://143.110.181.93/api/facilitator |
-| **Resource** | 3000 | UnleashNFTs APIs | http://143.110.181.93/api/resource |
-| **Streamlit** | 4000 | Frontend UI | http://143.110.181.93 |
+| **Facilitator** | 3001 | Payment verification | http://159.89.170.85/api/facilitator |
+| **Resource** | 3000 | UnleashNFTs APIs | http://159.89.170.85/api/resource |
+| **Streamlit** | 4000 | Frontend UI | http://159.89.170.85 |
 
 ### Avoided Ports (Already in Use):
 - 22: SSH
@@ -25,7 +25,7 @@
 
 Before deploying, ensure you have:
 
-- [ ] SSH access to server: `ssh root@143.110.181.93`
+- [ ] SSH access to server: `ssh root@159.89.170.85`
 - [ ] Private keys for wallets
 - [ ] UnleashNFTs API key
 - [ ] CoinGecko API key (optional)
@@ -36,7 +36,7 @@ Before deploying, ensure you have:
 ### Step 1: SSH to Server
 
 ```bash
-ssh root@143.110.181.93
+ssh root@159.89.170.85
 ```
 
 ### Step 2: Clone Repository (First Time Only)
@@ -92,8 +92,8 @@ OPENROUTER_API_KEY=your_openrouter_api_key_here  # optional
 
 **Keep these production URLs as-is:**
 ```bash
-FACILITATOR_URL=http://143.110.181.93/api/facilitator
-RESOURCE_URL=http://143.110.181.93/api/resource
+FACILITATOR_URL=http://159.89.170.85/api/facilitator
+RESOURCE_URL=http://159.89.170.85/api/resource
 ```
 
 Save and exit: `Ctrl+X`, then `Y`, then `Enter`
@@ -104,13 +104,13 @@ Save and exit: `Ctrl+X`, then `Y`, then `Enter`
 
 ```bash
 # Test Facilitator (should return JSON)
-curl http://143.110.181.93/api/facilitator/health
+curl http://159.89.170.85/api/facilitator/health
 
 # Test Resource (should return JSON)
-curl http://143.110.181.93/api/resource/health
+curl http://159.89.170.85/api/resource/health
 
 # Test Frontend (should return HTML)
-curl http://143.110.181.93
+curl http://159.89.170.85
 ```
 
 ### Check Running Services
@@ -138,12 +138,12 @@ tail -n 50 /root/bitscrunch-x402/logs/facilitator.log
 ## 🌐 Access Your Application
 
 ### Public URLs:
-- **Main App**: http://143.110.181.93
-- **Facilitator API**: http://143.110.181.93/api/facilitator
-- **Resource API**: http://143.110.181.93/api/resource
+- **Main App**: http://159.89.170.85
+- **Facilitator API**: http://159.89.170.85/api/facilitator
+- **Resource API**: http://159.89.170.85/api/resource
 
 ### Test in Browser:
-1. Open http://143.110.181.93
+1. Open http://159.89.170.85
 2. Go to "Test Endpoints" tab
 3. Select an endpoint
 4. Configure parameters
@@ -394,5 +394,5 @@ Before going live:
 **Your Production Setup:**
 - Free ports: 3000, 3001, 4000 ✅
 - Nginx routing: `/api/facilitator`, `/api/resource`, `/` ✅
-- Server IP: 143.110.181.93 ✅
+- Server IP: 159.89.170.85 ✅
 - Repository: coingraphai/bitscrunch-x402 ✅
