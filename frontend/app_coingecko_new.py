@@ -460,13 +460,12 @@ with tab2:
                         
                         # Response data
                         st.markdown("### 📦 Response Data")
-                        with st.expander("Click to view full API response", expanded=True):
-                            if "Response Data:" in full_output:
-                                response_start = full_output.find("Response Data:")
-                                response_data = full_output[response_start:]
-                                st.code(response_data, language="json")
-                            else:
-                                st.code(full_output, language=None)
+                        if "Response Data:" in full_output:
+                            response_start = full_output.find("Response Data:")
+                            response_data = full_output[response_start:]
+                            st.code(response_data, language="json")
+                        else:
+                            st.code(full_output, language=None)
                     
                     else:
                         st.error(f"❌ Payment to **{endpoint['name']}** failed")
