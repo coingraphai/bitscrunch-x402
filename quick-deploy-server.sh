@@ -25,8 +25,25 @@ cp .env.production .env
 # Step 4: Install Python 3.11 if needed
 if ! command -v python3.11 &> /dev/null; then
     echo "Installing Python 3.11..."
+    
+    # Remove problematic PPA if exists
+    rm -f /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-*.list
+    
     apt-get update
-    apt-get install -y python3.11 python3.11-venv python3.11-dev build-essential
+    apt-get install -y software-properties-common
+    
+    # Try default repos first
+    if apt-get install -y python3.11 python3.11-venv python3.11-dev 2>/dev/null; then
+        echo "Python 3.11 installed"
+    else
+        # Check if python3 is already 3.11+
+        if python3 --version 2>&1 | grep -q "Python 3\.1[1-9]"; then
+            echo "Python 3.11+ available as python3"
+            ln -sf $(which python3) /usr/local/bin/python3.11 || true
+        else
+            apt-get install -y build-essential libssl-dev libffi-dev python3-dev
+        fi
+    fi
 fi
 
 # Step 5: Setup virtual environment

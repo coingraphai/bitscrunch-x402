@@ -58,10 +58,43 @@ echo ""
 echo "🐍 Step 3: Checking Python installation..."
 if ! command -v python3.11 &> /dev/null; then
     echo "Installing Python 3.11..."
+    
+    # Remove any problematic PPA
+    rm -f /etc/apt/sources.list.d/deadsnakes-ubuntu-ppa-*.list
+    
+    # Update and install Python 3.11
     apt-get update
-    apt-get install -y python3.11 python3.11-venv python3.11-dev
+    apt-get install -y software-properties-common
+    
+    # Try to install python3.11 from default repos first
+    if apt-get install -y python3.11 python3.11-venv python3.11-dev 2>/dev/null; then
+        echo "✅ Python 3.11 installed from default repos"
+    else
+        # If not available, use alternative method
+        echo "Trying alternative installation method..."
+        apt-get install -y build-essential libssl-dev libffi-dev python3-dev
+        
+        # Check if python3 version is 3.11 or higher
+        if python3 --version 2>&1 | grep -q "Python 3\.1[1-9]"; then
+            echo "✅ Python 3.11+ already available as python3"
+            ln -sf $(which python3) /usr/local/bin/python3.11 || true
+        fi
+    fi
 fi
-echo "✅ Python 3.11 ready"
+
+# Verify Python 3.11 is available
+if command -v python3.11 &> /dev/null; then
+    echo "✅ Python 3.11 ready: $(python3.11 --version)"
+elif python3 --version 2>&1 | grep -q "Python 3\.1[1-9]"; then
+    echo "✅ Python 3 (version 3.11+) is available"
+    # Create symlink if needed
+    ln -sf $(which python3) /usr/local/bin/python3.11 || true
+else
+    echo "❌ Python 3.11 installation failed"
+    echo "Please install manually:"
+    echo "  apt-get install python3.11 python3.11-venv python3.11-dev"
+    exit 1
+fi
 echo ""
 
 # 4. Setup virtual environment
