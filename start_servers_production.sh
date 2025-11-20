@@ -62,6 +62,19 @@ echo "   PID: $RESOURCE_PID"
 # Wait for servers to start
 sleep 3
 
+# Start Streamlit Frontend on port 4000
+echo "[START] Starting Streamlit Frontend on port 4000..."
+nohup streamlit run frontend/app.py \
+    --server.port 4000 \
+    --server.address 0.0.0.0 \
+    --server.headless true \
+    > logs/streamlit.log 2>&1 &
+STREAMLIT_PID=$!
+echo "   PID: $STREAMLIT_PID"
+
+# Wait for Streamlit to start
+sleep 5
+
 # Check server health
 echo ""
 echo "[CHECK] Verifying server status..."
@@ -80,22 +93,33 @@ else
     echo "[ERROR] Resource Server: OFFLINE"
 fi
 
+# Check Streamlit
+if curl -s http://localhost:4000 > /dev/null 2>&1; then
+    echo "[OK] Streamlit Frontend: ONLINE (http://localhost:4000)"
+else
+    echo "[ERROR] Streamlit Frontend: OFFLINE"
+    echo "        Check logs: tail -f logs/streamlit.log"
+fi
+
 echo ""
 echo "[INFO] Process IDs:"
 echo "   Facilitator: $FACILITATOR_PID"
 echo "   Resource: $RESOURCE_PID"
+echo "   Streamlit: $STREAMLIT_PID"
 
 echo ""
 echo "[INFO] View logs:"
 echo "   tail -f logs/facilitator.log"
 echo "   tail -f logs/resource.log"
+echo "   tail -f logs/streamlit.log"
 
 echo ""
 echo "[INFO] To stop servers:"
-echo "   kill $FACILITATOR_PID $RESOURCE_PID"
+echo "   kill $FACILITATOR_PID $RESOURCE_PID $STREAMLIT_PID"
 
 echo ""
 echo "[INFO] Access endpoints:"
+echo "   Frontend: http://159.89.170.85"
 echo "   Facilitator: http://159.89.170.85/api/facilitator"
 echo "   Resource: http://159.89.170.85/api/resource"
 echo ""
